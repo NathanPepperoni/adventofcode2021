@@ -1,15 +1,14 @@
-import fs from "fs";
+import loadPuzzleInput from "../utils/loadPuzzleInput.js";
 
 function star1() {
-  const fileString = fs.readFileSync('./Day1/puzzle_input.txt', {encoding:'utf8', flag:'r'});
-  const sonarPings = fileString.split("\n").map((elem) => Number.parseInt(elem));
+  const sonarPings = loadPuzzleInput(1).map((elem) => Number.parseInt(elem));
 
   let prev = -1;
   let count = -1;
 
   sonarPings.forEach((ping) => {
     if (ping > prev) {
-      count++
+      count++;
     }
     prev = ping;
   });

@@ -1,8 +1,7 @@
-import fs from "fs";
+import loadPuzzleInput from "../utils/loadPuzzleInput.js";
 
 function star2() {
-  const fileString = fs.readFileSync('./Day1/puzzle_input.txt', {encoding:'utf8', flag:'r'});
-  const sonarPings = fileString.split("\n").map((elem) => Number.parseInt(elem));
+  const sonarPings = loadPuzzleInput(1).map((elem) => Number.parseInt(elem));
 
   let prevSum = -1;
   let count = -1;
