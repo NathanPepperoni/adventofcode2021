@@ -9,30 +9,26 @@ const calculateSums = (diagnostics) => {
   });
 
   return sums.map((sum) => sum / diagnostics.length);
-}
+};
 
 const siftDiagnostics = (sums, diagnostics, comparator) => {
   let i = 0;
   while (diagnostics.length > 1) {
     sums = calculateSums(diagnostics);
-    if (comparator(sums[i])) {
-      diagnostics = diagnostics.filter(sum => sum[i] === "1");
-    }
-    else {
-      diagnostics = diagnostics.filter(sum => sum[i] === "0");
-    }
+    const filterBit = comparator(sums[i]) ? "1" : "0";
+    diagnostics = diagnostics.filter((sum) => sum[i] === filterBit);
     i++;
   }
 
   return Number.parseInt(diagnostics[0], 2);
-}
+};
 
 function star6() {
   const diagnostics = loadPuzzleInput(3);
 
   const sumData = calculateSums(diagnostics);
-  const genRating = siftDiagnostics(sumData, diagnostics, sum => sum >= .5);
-  const o2Rating = siftDiagnostics(sumData, diagnostics, sum => sum < .5);
+  const genRating = siftDiagnostics(sumData, diagnostics, (sum) => sum >= 0.5);
+  const o2Rating = siftDiagnostics(sumData, diagnostics, (sum) => sum < 0.5);
 
   return genRating * o2Rating;
 }
