@@ -104,4 +104,4 @@ dist
 .tern-port
 
 # vscode stuff
-.vscode/launch.json
+.vscode/
