@@ -6,8 +6,10 @@ import star5 from "./Day3/star5.js";
 import star6 from "./Day3/star6.js";
 import star7 from "./Day4/star7.js";
 import star8 from "./Day4/star8.js";
+import star10 from "./Day5/star10.js";
+import star9 from "./Day5/star9.js";
 
-const starray = [star1, star2, star3, star4, star5, star6, star7, star8];
+const starray = [star1, star2, star3, star4, star5, star6, star7, star8, star9, star10];
 
 const invalidArguments = () => {
   console.log("Invalid argument. Please read the README.")
