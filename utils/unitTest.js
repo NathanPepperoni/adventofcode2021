@@ -12,6 +12,8 @@ import star10 from "../Day5/star10.js";
 import star9 from "../Day5/star9.js";
 import star11 from "../Day6/star11.js";
 import star12 from "../Day6/star12.js";
+import star13 from "../Day7/star13.js";
+import star14 from "../Day7/star14.js";
 
 const assertStar = (starNumber, expected, received) => {
   const message = `star${starNumber} result failed. Expected ${expected} and received ${received}`;
@@ -19,9 +21,9 @@ const assertStar = (starNumber, expected, received) => {
 };
 
 const expectedArray = [
-  1477, 1523, 1383564, 1488311643, 3429254, 5410338, 51034, 5434, 7473, 24164, 360610, 1631629590423,
+  1477, 1523, 1383564, 1488311643, 3429254, 5410338, 51034, 5434, 7473, 24164, 360610, 1631629590423, 343468, 96086265,
 ];
-const starray = [star1, star2, star3, star4, star5, star6, star7, star8, star9, star10, star11, star12];
+const starray = [star1, star2, star3, star4, star5, star6, star7, star8, star9, star10, star11, star12, star13, star14];
 
 for (let star = 0; star < starray.length; star++) {
   assertStar(star + 1, expectedArray[star], starray[star]());

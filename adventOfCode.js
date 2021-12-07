@@ -10,12 +10,29 @@ import star10 from "./Day5/star10.js";
 import star9 from "./Day5/star9.js";
 import star11 from "./Day6/star11.js";
 import star12 from "./Day6/star12.js";
+import star13 from "./Day7/star13.js";
+import star14 from "./Day7/star14.js";
 
-const starray = [star1, star2, star3, star4, star5, star6, star7, star8, star9, star10, star11, star12];
+const starray = [
+  star1,
+  star2,
+  star3,
+  star4,
+  star5,
+  star6,
+  star7,
+  star8,
+  star9,
+  star10,
+  star11,
+  star12,
+  star13,
+  star14,
+];
 
 const invalidArguments = () => {
-  console.log("Invalid argument. Please read the README.")
-}
+  console.log("Invalid argument. Please read the README.");
+};
 
 const execute = () => {
   const args = process.argv;
@@ -27,11 +44,9 @@ const execute = () => {
   }
   if (cliArg.startsWith("star")) {
     solveStar(argNumber);
-  }
-  else if (cliArg.startsWith("day")) {
+  } else if (cliArg.startsWith("day")) {
     solveDay(argNumber);
-  }
-  else {
+  } else {
     invalidArguments();
     return;
   }
@@ -48,12 +63,12 @@ const solveStar = (starNumber) => {
 };
 
 const solveDay = (dayNumber) => {
-  if (dayNumber > starray.length/2) {
+  if (dayNumber > starray.length / 2) {
     console.log("requested star number not implemented yet.");
     return;
   }
-  const firstStarNumber = 1 + 2*(dayNumber-1);
-  const secondStarNumber = 2 + 2*(dayNumber-1);
+  const firstStarNumber = 1 + 2 * (dayNumber - 1);
+  const secondStarNumber = 2 + 2 * (dayNumber - 1);
   const firstResult = starray[firstStarNumber - 1]();
   const secondResult = starray[secondStarNumber - 1]();
 
