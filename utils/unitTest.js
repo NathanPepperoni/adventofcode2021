@@ -32,9 +32,7 @@ const assertStar = (starNumber, expected, received) => {
 
 const expectedArray = [
   1477, 1523, 1383564, 1488311643, 3429254, 5410338, 51034, 5434, 7473, 24164, 360610, 1631629590423, 343468, 96086265,
-  288,
-  // 940724,
-  478, 1327014, 341823, 2801302861, 1700, 273, 4773, 116985,
+  288, 940724, 478, 1327014, 341823, 2801302861, 1700, 273, 4773, 116985,
 ];
 const starray = [
   star1,
@@ -52,7 +50,7 @@ const starray = [
   star13,
   star14,
   star15,
-  // star16, skipping this until i refactor it to not take forever to run
+  star16,
   star17,
   star18,
   star19,

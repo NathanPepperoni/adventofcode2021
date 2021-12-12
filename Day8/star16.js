@@ -43,88 +43,28 @@ const convertOutputToSum = (output, config) => {
   return Number.parseInt(digitString);
 };
 
-const isValid = (configuration, patterns) => {
-  const letters = {
-    0: [0, 1, 2, 4, 5, 6],
-    1: [2, 5],
-    2: [0, 2, 3, 4, 6],
-    3: [0, 2, 3, 5, 6],
-    4: [1, 2, 3, 5],
-    5: [0, 1, 3, 5, 6],
-    6: [0, 1, 3, 4, 5, 6],
-    7: [0, 2, 5],
-    8: [0, 1, 2, 3, 4, 5, 6],
-    9: [0, 1, 2, 3, 5, 6],
-  };
-
-  let wholeMatch = true;
-  for (let index = 0; index < patterns.length; index++) {
-    const pattern = patterns[index];
-    const convertedPattern = convert(configuration, pattern);
-    let letterMatch = false;
-    for (let letter = 0; letter < 10; letter++) {
-      if (JSON.stringify(letters[letter]) === JSON.stringify(convertedPattern)) {
-        letterMatch = true;
-      }
+const countInPatterns = (letter, patterns) => {
+  
+  return patterns.reduce((acc, curr) => {
+    if (curr.includes(letter)) {
+      return acc + 1;
     }
-    wholeMatch = wholeMatch && letterMatch;
+    return acc;
+  }, 0);
+};
+
+const matchingDigit = (digit1, digit2) => {
+  if (digit1.length !== digit2.length) {
+    return false;
   }
-  return wholeMatch;
-};
 
-const bruteForceConfig = (patterns) => {
-  const sequence = [0, 1, 2, 3, 4, 5, 6];
-
-  // I'm not even remotely proud of this. It's not even the best way to brute force it, but here we are.
-  let configuration;
-  sequence.forEach((firstDigit) => {
-    sequence
-      .filter((digit) => digit !== firstDigit)
-      .forEach((secondDigit) => {
-        sequence
-          .filter((digit) => ![firstDigit, secondDigit].includes(digit))
-          .forEach((thirdDigit) => {
-            sequence
-              .filter((digit) => ![firstDigit, secondDigit, thirdDigit].includes(digit))
-              .forEach((fourthDigit) => {
-                sequence
-                  .filter((digit) => ![firstDigit, secondDigit, thirdDigit, fourthDigit].includes(digit))
-                  .forEach((fifthDigit) => {
-                    sequence
-                      .filter(
-                        (digit) => ![firstDigit, secondDigit, thirdDigit, fourthDigit, fifthDigit].includes(digit)
-                      )
-                      .forEach((sixthDigit) => {
-                        sequence
-                          .filter(
-                            (digit) =>
-                              ![firstDigit, secondDigit, thirdDigit, fourthDigit, fifthDigit, sixthDigit].includes(
-                                digit
-                              )
-                          )
-                          .forEach((seventhDigit) => {
-                            const config = [
-                              firstDigit,
-                              secondDigit,
-                              thirdDigit,
-                              fourthDigit,
-                              fifthDigit,
-                              sixthDigit,
-                              seventhDigit,
-                            ];
-                            if (isValid(config, patterns)) {
-                              configuration = config;
-                            }
-                          });
-                      });
-                  });
-              });
-          });
-      });
-  });
-
-  return configuration;
-};
+  for (let i = 0; i < digit1.length; i++) {
+    if (!digit1.includes(digit2[i])) {
+      return false;
+    }
+  }
+  return true;
+}
 
 function star16() {
   const input = loadPuzzleInput(8)
@@ -136,8 +76,72 @@ function star16() {
     const patterns = element[0].split(" ");
     const output = element[1].split(" ");
 
-    const config = bruteForceConfig(patterns);
-    sum += convertOutputToSum(output, config);
+    let a, b, c, d, e, f, g;
+
+    const one = patterns.filter((pattern) => pattern.length === 2)[0];
+    const four = patterns.filter((pattern) => pattern.length === 4)[0];
+    const seven = patterns.filter((pattern) => pattern.length === 3)[0];
+    const eight = patterns.filter((pattern) => pattern.length === 7)[0];
+
+    if (countInPatterns(one[0], patterns) === 9) {
+      f = one[0];
+      c = one[1];
+    } else {
+      f = one[1];
+      c = one[0];
+    }
+
+    eight.split("").forEach((char) => {
+      if (countInPatterns(char, patterns) === 6) {
+        b = char;
+      }
+      if (countInPatterns(char, patterns) === 4) {
+        e = char;
+      }
+    });
+
+    four.split("").forEach((char) => {
+      if (countInPatterns(char, patterns) === 6) {
+        b = char;
+      }
+    });
+
+    seven.split("").forEach((char) => {
+      if (!one.includes(char)) {
+        a = char;
+      }
+    });
+
+    four.split("").forEach((char) => {
+      if (![b, c, f].includes(char)) {
+        d = char;
+      }
+    });
+
+    eight.split("").forEach((char) => {
+      if (![a, b, c, d, e, f].includes(char)) {
+        g = char;
+      }
+    });
+
+    const zero =  `${a}${b}${c}${e}${f}${g}`
+    const two = `${a}${c}${d}${e}${g}`;
+    const three = `${a}${c}${d}${f}${g}`
+    const five = `${a}${b}${d}${f}${g}`
+    const six = `${a}${b}${d}${e}${f}${g}`
+    const nine = `${a}${b}${c}${d}${f}${g}`
+
+
+    let outputString = ""
+    const nums = [zero, one, two, three, four, five, six, seven, eight, nine]
+    output.forEach(digit => {
+      for (let i = 0; i < 10; i++) {
+        if (matchingDigit(digit, nums[i])) {
+          outputString += i.toString();
+        }
+      }
+    })
+    sum += Number.parseInt(outputString);
   });
 
   return sum;

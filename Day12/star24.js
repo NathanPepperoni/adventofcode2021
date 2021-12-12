@@ -27,7 +27,7 @@ const countPaths = (adjacencyMatrix, path) => {
     const destinationNode = adjacency[1];
     if (destinationNode === destinationNode.toLowerCase()) {
       if ((hasVisitedSmallCaveTwice(path) && path.includes(destinationNode)) || ["start"].includes(destinationNode)) {
-        return;
+        return [];
       }
     }
     const newPath = JSON.parse(JSON.stringify(path));
