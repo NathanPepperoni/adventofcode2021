@@ -23,14 +23,15 @@ const countPaths = (adjacencyMatrix, path) => {
   const adjacentNodes = adjacencyMatrix.filter((adjacency) => adjacency[0] === currentNode);
 
   let paths = [];
-  adjacentNodes.forEach((node) => {
-    if (node[1] === node[1].toLowerCase()) {
-      if ((hasVisitedSmallCaveTwice(path) && path.includes(node[1])) || ["start"].includes(node[1])) {
+  adjacentNodes.forEach((adjacency) => {
+    const destinationNode = adjacency[1];
+    if (destinationNode === destinationNode.toLowerCase()) {
+      if ((hasVisitedSmallCaveTwice(path) && path.includes(destinationNode)) || ["start"].includes(destinationNode)) {
         return;
       }
     }
     const newPath = JSON.parse(JSON.stringify(path));
-    newPath.push(node[1]);
+    newPath.push(destinationNode);
     paths = paths.concat(countPaths(adjacencyMatrix, newPath));
   });
   return paths;
