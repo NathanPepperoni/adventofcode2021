@@ -49,7 +49,6 @@ class Board {
   checkVictory() {
     const horizontalVictory = !!this.horizontal.find((item) => !item.length);
     const verticalVictory = !!this.vertical.find((item) => !item.length);
-    const v = horizontalVictory || verticalVictory;
     return horizontalVictory || verticalVictory;
   }
 
