@@ -29,7 +29,9 @@ const solveStar = (starNumber) => {
   }
   const result = starray[starNumber - 1]();
 
-  console.log(`star ${starNumber} result: ${result}`);
+  if (result) {
+    console.log(`star ${starNumber} result: ${result}`);
+  }
 };
 
 const solveDay = (dayNumber) => {
