@@ -34,6 +34,8 @@ const expectedArray = [
   116985,
   743,
   JSON.stringify(star26ExpectedString),
+  2170,
+  2422444761283,
 ];
 
 for (let star = 0; star < starray.length; star++) {
